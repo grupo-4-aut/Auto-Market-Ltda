@@ -32,8 +32,8 @@ void loop()
     if (digitalRead(infrared1_pin) == LOW && product_here == wanted_product)
     {
 
-        Serial.println("objeto na frente do sensor");
-        Serial.println("esteira desligada");
+        Serial.println("objeto na frente do sensor infravermelho");
+        Serial.println("motor desligado");
         digitalWrite(motor_pin, LOW);
 
         delay(1000);
@@ -41,8 +41,8 @@ void loop()
         if (digitalRead(infrared1_pin) == LOW)
         {
 
-            Serial.println("objeto na frente do sensor");
-            Serial.println("servo rodando");
+            Serial.println("objeto na frente do sensor infravermelho");
+            Serial.println("servo ligado");
             
             // aciona o servo motor para a abertura da comporta
             for (servo_pos = 0; servo_pos < 90; servo_pos++)
@@ -64,7 +64,8 @@ void loop()
     // aciona a esteira caso ainda exista algum produto a ser colocado na caixa
     else if (any_product_lack)
     {
-        Serial.println("esteira rodando");
+        Serial.println("servos desligados");
+        Serial.println("motor ligado");
         digitalWrite(motor_pin, HIGH);
     }
 }
