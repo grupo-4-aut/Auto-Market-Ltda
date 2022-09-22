@@ -1,54 +1,70 @@
-//SERVO MOTOR
 #include <Servo.h>
 
+// pin declaration
 #define SERVO 6
 
-Servo s; // Variável Servo
-int pos; // Posição Servo
-//SERVO MOTOR
+const int motor_pin = 4;
+const int infrared1_pin = 8;
 
-//SENSOR INFRAVERMELHO
-const int pinoLed = 4; //PINO DIGITAL UTILIZADO PELO LED
-const int pinoSensor = 8; //PINO DIGITAL UTILIZADO PELO SENSOR
-//SENSOR INFRAVERMELHO
+// vars
+Servo s;
+int servo_pos;
+int any_product_lack = 1;
 
-void setup() {
-  //SENSOR INFRAVERMELHO
-  pinMode(pinoSensor, INPUT); //DEFINE O PINO COMO ENTRADA
-  pinMode(pinoLed, OUTPUT); //DEFINE O PINO COMO SAÍDA
-  digitalWrite(pinoLed, LOW); //LED INICIA DESLIGADO
-  //SENSOR INFRAVERMELHO
+int product_here = 1;
+int wanted_product = 1;
 
-  //SERVO MOTOR
-  s.attach(SERVO);
-  Serial.begin(9600);
-  s.write(0);
-  //SERVO MOTOR
+void setup()
+{
+
+    pinMode(infrared1_pin, INPUT);
+    pinMode(pinoEsteira, OUTPUT);
+    digitalWrite(motor_pin, LOW);
+
+    s.attach(SERVO);
+    Serial.begin(9600);
+    s.write(0);
 }
 
-void loop() {
-  //SENSOR INFRAVERMELHO
-  if (digitalRead(pinoSensor) == LOW) { //SE A LEITURA DO PINO FOR IGUAL A LOW, FAZ
-    digitalWrite(pinoLed, HIGH); //ACENDE O LED
-    //SERVO MOTOR
-    delay(1000);
-    if (digitalRead(pinoSensor) == LOW) {
-      for (pos = 0; pos < 90; pos++)
-      {
-        s.write(pos);
-        delay(5);
-      }
-      delay(1000);
-      for (pos = 90; pos >= 0; pos--)
-      {
-        s.write(pos);
-        delay(5);
-      }
-    }
-    //SERVO MOTOR
+void loop()
+{
+    // checa se a caixa esta posicionada
+    if (digitalRead(infrared1_pin) == LOW && product_here == wanted_product)
+    {
 
-  } else { //SENÃO, FAZ
-    digitalWrite(pinoLed, LOW); //APAGA O LED
-  }
-  //SENSOR INFRAVERMELHO
+        Serial.println("objeto na frente do sensor");
+        Serial.println("esteira desligada");
+        digitalWrite(motor_pin, LOW);
+
+        delay(1000);
+        
+        if (digitalRead(infrared1_pin) == LOW)
+        {
+
+            Serial.println("objeto na frente do sensor");
+            Serial.println("servo rodando");
+            
+            // aciona o servo motor para a abertura da comporta
+            for (servo_pos = 0; servo_pos < 90; servo_pos++)
+            {
+                s.write(servo_pos);
+                delay(5);
+            }
+            delay(1000);
+            for (servo_pos = 90; servo_pos >= 0; servo_pos--)
+            {
+                s.write(servo_pos);
+                delay(5);
+            }
+        }
+
+        delay(2000);
+    }
+    
+    // aciona a esteira caso ainda exista algum produto a ser colocado na caixa
+    else if (any_product_lack)
+    {
+        Serial.println("esteira rodando");
+        digitalWrite(motor_pin, HIGH);
+    }
 }
