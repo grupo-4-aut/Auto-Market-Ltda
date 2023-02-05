@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "25212321393",
+    "project_id": "automarket-ltda23",
+    "storage_bucket": "automarket-ltda23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25212321393:android:e69ab5c7ceb1ecd40f65d0",
+        "android_client_info": {
+          "package_name": "com.AutoMarketLtda.kd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25212321393-aoc1kt9imqvfm81guqonqi9f8g42928r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAANwtT0bL59Hu74U6H_WMoDSm_QL2pOfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25212321393-aoc1kt9imqvfm81guqonqi9f8g42928r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
